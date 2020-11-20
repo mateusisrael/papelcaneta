@@ -1,0 +1,18 @@
+.taskList {
+  width: 100%;
+  min-width: 480px;
+  min-height: 400px;
+  /* background-color: silver; */
+  margin: 20px 0 0 0;
+  padding: 20px 0 0 0;
+  color: purple;
+}
+
+.task {
+  text-align: left;
+  margin: 0 1em 0.5em 1em ;
+  background-color: silver;
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+}

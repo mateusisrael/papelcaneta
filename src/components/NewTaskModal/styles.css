@@ -1,0 +1,112 @@
+.newTaskModal {
+  flex-direction: column;
+  display: flex;
+  position: absolute;
+  padding: 10px 0 0 30px;
+  bottom: 0;
+  width: calc(100% - 30px);
+  min-width: 270px;
+  height: calc(90vh - 10px);
+  background: green;
+  border-radius: 10px 10px 0 0;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1;
+}
+.openAnimation {
+  animation-name: openModal;
+}
+.closeAnimation {
+  animation-name: closeAnimation;
+}
+
+@keyframes openModal {
+  0% {
+    opacity: 0.7;
+    height: 5vh;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    height: calc(90vh - 10px);
+  }
+}
+
+@keyframes closeAnimation {
+  from {
+    opacity: 1;
+    height: calc(90vh - 10px);
+  }
+  30% {
+    opacity: 0.7;
+  }
+  to {
+    height: 5vh;
+  }
+}
+
+.row {
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+.quitButton {
+  /* position: absolute;
+  top: 10px;
+  right: 10px; */
+  margin-left: 20px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.title {
+  background: var(--green);
+  color: #fff;
+  font-size: 1.3em;
+  font-weight: 600;
+  width: 70%;
+  height: 50px;
+  border: none;
+}
+.title::placeholder {
+  color: silver;
+}
+.description {
+  margin: 20px 0 20px 0;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  width: 70%;
+  height: 300px;
+  overflow: none;
+}
+.description::placeholder {
+  color: silver;
+}
+.colorIcon {
+  color: silver;
+  cursor: pointer;
+  font-size: 24px;
+}
+label {
+  text-align: start;
+}
+.colorSelector {
+  width: 100px;
+  height: 100px;
+  background: silver;
+  border-radius: 5px;
+  box-shadow: 10px 10px 10px #004200;
+}
+.saveButton {
+  position: relative;
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
