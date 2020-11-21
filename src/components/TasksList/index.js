@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { getTasks } from "../../dataFlow/actions";
 
 
-const mapStateToProps = (state) => ({
-  loading: state.loading,
-  payload: state.payload
+const mapStateToProps = ({getTasksReducer}) => ({
+  loading: getTasksReducer.loading,
+  payload: getTasksReducer.payload
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -17,7 +17,6 @@ const mapDispatchToProps = (dispatch) => {
 
 
 const TasksList = ({ payload, loading, getTasks }) => {
-  
   const data = payload;
   const tasks = data && data.data;
 
@@ -28,12 +27,11 @@ const TasksList = ({ payload, loading, getTasks }) => {
     document.title = `${title}`
   })
 
-
   
   const render = () => {
     return(
       loading ? <span>Carregando...</span> : (
-        tasks === null ? <button onClick={() => getTasks("http://localhost:3004/movies")}>get data</button> : (
+        tasks === null ? <button onClick={() => getTasks("http://localhost:3004/tasks")}>get data</button> : (
           <div className="taskList">
             {
               tasks.length === 0 ? <span>Sem tarefas</span> : (
@@ -41,8 +39,8 @@ const TasksList = ({ payload, loading, getTasks }) => {
                 tasks.map((task, id) => {
                   return (
                     <div className="task" key={id}>
-                      <h2>{task.name}</h2>
-                      <p>{task.year}</p>
+                      <h2>{task.title}</h2>
+                      <p>{task.description}</p>
                     </div>
                   );
                 })

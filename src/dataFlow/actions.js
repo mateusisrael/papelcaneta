@@ -47,3 +47,56 @@ export const getTasksFailure = (err) => {
     }
   }
 }
+
+
+// ADD TASK
+export const ADD_TASK = 'ADD_TASK';
+export const ADD_TASK_STARTED = 'ADD_TASK_STARTED';
+export const ADD_TASK_SUCESS = 'ADD_TASK_SUCESS';
+export const ADD_TASK_FAILURE = 'ADD_TASK_FAILURE';
+
+export const addTask = (uri, task) => {
+  return async (dispatch) => {
+    dispatch(addTaskStarted());
+
+    axios
+      .post(uri, {
+        "title": task.title,
+        "description": task.description
+      })
+      .then(res => {
+        setTimeout(() => {
+          dispatch(addTaskSucess(res.data))
+
+        }, 1000)
+      })
+      .catch(err => {
+        dispatch(addTaskFailure(err))
+      });
+  }
+}
+
+export const addTaskStarted = () => {
+  return {
+    type: ADD_TASK_STARTED
+  }
+}
+
+export const addTaskSucess = (data) => {
+
+  return {
+    type: ADD_TASK_SUCESS,
+    payload: {
+      data
+    }
+  }
+}
+
+export const addTaskFailure = (err) => {
+  return {
+    type: ADD_TASK_FAILURE,
+    payload: {
+      err
+    }
+  }
+}

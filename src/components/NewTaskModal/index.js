@@ -1,10 +1,20 @@
 import React from "react";
 import { IoMdColorPalette } from "react-icons/io";
+import { connect } from 'react-redux'
+import { addTask } from "../../dataFlow/actions";
 import ColorSelector from "./ColorSelector";
 import "./styles.css";
 
+const mapStateToProps = (state) => ({
+  err: state.err,
+  loading: state.loading
+})
 
-const NewTaskModal = ({ onClickClose, onClickSave }) => {
+const mapDispatchToProps = (dispatch) => ({
+  addTask: (uri, task) => dispatch(addTask(uri, task))
+})
+
+const NewTaskModal = ({ onClickClose, onClickSave, addTask }) => {
   const useState = React.useState;
   const [style, setStyle] = useState("newTaskModal openAnimation");
   const [colorSelectorState, setColorSelectorState] = useState(false);
@@ -16,7 +26,9 @@ const NewTaskModal = ({ onClickClose, onClickSave }) => {
       description: event.target.description.value
     };
 
-    return onClickSave(currentTask);
+    addTask("http://localhost:3004/tasks", currentTask)
+
+    return onClickSave();
   };
 
 
@@ -63,4 +75,4 @@ const NewTaskModal = ({ onClickClose, onClickSave }) => {
   );
 };
 
-export default NewTaskModal;
+export default connect(mapStateToProps, mapDispatchToProps)(NewTaskModal);
