@@ -7,10 +7,11 @@ import thunk from "redux-thunk";
 import { Provider } from 'react-redux';
 import { getTasksReducer, addTaskReducer } from './dataFlow/reducers';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { getTasks } from "./dataFlow/actions";
 
 const appReducer = combineReducers({addTaskReducer, getTasksReducer})
 const store = createStore(appReducer, applyMiddleware(thunk));
-console.log(store.getState())
+console.log(store)
 export default function App() {
   
   const useState = React.useState;
@@ -21,6 +22,7 @@ export default function App() {
     // setTask([].concat(tasks, currentTask));
     // tasks.map((task) => console.log(task));
     setModalState(!newTaskModal);
+    store.dispatch(getTasks("http://localhost:3004/tasks"))
   };
 
   return (

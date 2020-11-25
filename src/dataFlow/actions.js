@@ -15,7 +15,7 @@ export const getTasks = (uri) => {
         setTimeout(() => {
           dispatch(getTasksSucess(res.data))
 
-        }, 1000)
+        }, 500)
       })
       .catch(err => {
         dispatch(getTasksFailure(err))
@@ -67,8 +67,7 @@ export const addTask = (uri, task) => {
       .then(res => {
         setTimeout(() => {
           dispatch(addTaskSucess(res.data))
-
-        }, 1000)
+        }, 500)
       })
       .catch(err => {
         dispatch(addTaskFailure(err))
@@ -86,7 +85,7 @@ export const addTaskSucess = (data) => {
 
   return {
     type: ADD_TASK_SUCESS,
-    payload: {
+    message: {
       data
     }
   }
@@ -95,7 +94,7 @@ export const addTaskSucess = (data) => {
 export const addTaskFailure = (err) => {
   return {
     type: ADD_TASK_FAILURE,
-    payload: {
+    err: {
       err
     }
   }

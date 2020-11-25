@@ -24,14 +24,15 @@ const TasksList = ({ payload, loading, getTasks }) => {
     tasks.length === 0 ? document.title : `(${tasks.length}) ${document.title}`
   ) : document.title;
   useEffect(() => {
-    document.title = `${title}`
-  })
+    // document.title = `${title}`
+    getTasks("http://localhost:3004/tasks")
+  }, [])
 
   
   const render = () => {
     return(
       loading ? <span>Carregando...</span> : (
-        tasks === null ? <button onClick={() => getTasks("http://localhost:3004/tasks")}>get data</button> : (
+        tasks === null ? <p>Nada Aqui</p> : (
           <div className="taskList">
             {
               tasks.length === 0 ? <span>Sem tarefas</span> : (

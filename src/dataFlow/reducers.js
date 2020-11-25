@@ -61,8 +61,8 @@ export const addTaskReducer = (state = ADD_TASK_INITIAL_STATE, action) => {
       return {
         ...state,
         loading: false,
-        payload: {
-          ...action.payload
+        message: {
+          ...action.message
         }
       }
 
@@ -70,7 +70,7 @@ export const addTaskReducer = (state = ADD_TASK_INITIAL_STATE, action) => {
       return {
         ...state,
         loading: false,
-        err: action.payload
+        err: action.err
       }
 
     default:

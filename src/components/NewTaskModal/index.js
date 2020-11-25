@@ -1,7 +1,7 @@
 import React from "react";
 import { IoMdColorPalette } from "react-icons/io";
 import { connect } from 'react-redux'
-import { addTask } from "../../dataFlow/actions";
+import { addTask, getTasks } from "../../dataFlow/actions";
 import ColorSelector from "./ColorSelector";
 import "./styles.css";
 
@@ -11,7 +11,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  addTask: (uri, task) => dispatch(addTask(uri, task))
+  addTask: (uri, task) => dispatch(addTask(uri, task)),
+  getTasks: (uri) => dispatch(addTask(uri))
 })
 
 const NewTaskModal = ({ onClickClose, onClickSave, addTask }) => {
