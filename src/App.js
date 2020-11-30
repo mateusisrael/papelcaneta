@@ -5,11 +5,11 @@ import TasksList from "./components/TasksList";
 import "./styles.css";
 import thunk from "redux-thunk";
 import { Provider } from 'react-redux';
-import { getTasksReducer, addTaskReducer } from './dataFlow/reducers';
+import { getTasksReducer, addTaskReducer, removeTaskReducer } from './dataFlow/reducers';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { getTasks } from "./dataFlow/actions";
 
-const appReducer = combineReducers({addTaskReducer, getTasksReducer})
+const appReducer = combineReducers({addTaskReducer, getTasksReducer, removeTaskReducer})
 const store = createStore(appReducer, applyMiddleware(thunk));
 console.log(store)
 export default function App() {
@@ -25,6 +25,8 @@ export default function App() {
     store.dispatch(getTasks("http://localhost:3004/tasks"))
   };
 
+  const handleRemoveTask = () => (store.dispatch(getTasks("http://localhost:3004/tasks")))
+
   return (
     <div className="App">
       <Provider store={store}>
@@ -39,7 +41,7 @@ export default function App() {
         )}
 
         {/* <TasksList tasks={tasks} /> */}
-        <TasksList />
+        <TasksList onRemove={handleRemoveTask}/>
       </Provider>
     </div>
   );

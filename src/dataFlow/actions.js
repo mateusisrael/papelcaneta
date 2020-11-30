@@ -99,3 +99,61 @@ export const addTaskFailure = (err) => {
     }
   }
 }
+
+
+
+// REMOVE TASK
+export const RMV_TASK = 'RMV_TASK';
+export const RMV_TASK_STARTED = 'RMV_TASK_STARTED';
+export const RMV_TASK_SUCESS = 'RMV_TASK_SUCESS';
+export const RMV_TASK_FAILURE = 'RMV_TASK_FAILURE';
+
+export const removeTask = (uri, id) => {
+  return async (dispatch) => {
+    dispatch(removeTaskStarted());
+
+  axios
+    .delete(
+      uri,
+      {
+        params: {
+          task_id: id
+        }
+      }
+    )
+    .then(res => {
+      switch(res.message) {
+        case "removed":
+          return dispatch(removeTaskSucess())
+
+        case "error":
+          return dispatch(removeTaskFailure())
+      }
+    })
+    .catch(err => (
+      dispatch(removeTaskFailure())
+    ))
+  }
+}
+
+export const removeTaskStarted = () => {
+  return {
+    type: RMV_TASK_STARTED
+  }
+}
+
+export const removeTaskSucess = () => {
+
+  return {
+    type: RMV_TASK_SUCESS,
+  }
+}
+
+export const removeTaskFailure = () => {
+  return {
+    type: RMV_TASK_FAILURE,
+    // err: {
+    //   err
+    // }
+  }
+}

@@ -6,7 +6,11 @@ import {
   ADD_TASK,
   ADD_TASK_STARTED,
   ADD_TASK_SUCESS,
-  ADD_TASK_FAILURE
+  ADD_TASK_FAILURE,
+
+  RMV_TASK_STARTED,
+  RMV_TASK_SUCESS,
+  RMV_TASK_FAILURE
 } from './actions'
 
 const GET_TASKS_INITIAL_STATE = {
@@ -75,5 +79,39 @@ export const addTaskReducer = (state = ADD_TASK_INITIAL_STATE, action) => {
 
     default:
       return state;
+  }
+}
+
+const RMV_TASKS_INITIAL_STATE = {
+  loading: false,
+  removed: undefined,
+  err: null
+}
+
+export const removeTaskReducer = ( state = RMV_TASKS_INITIAL_STATE, action) => {
+  switch(action.type) {
+    case RMV_TASK_STARTED:
+      return {
+        ...state,
+        loading: true
+      }
+
+    case RMV_TASK_SUCESS: 
+    return {
+      ...state,
+      loading: false,
+      removed: true
+    }
+
+    case RMV_TASK_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        removed: false,
+        err: true,
+      }
+
+    default:
+      return state
   }
 }

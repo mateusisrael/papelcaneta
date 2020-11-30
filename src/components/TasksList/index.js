@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./styles.css";
 import { connect } from 'react-redux';
-import { getTasks } from "../../dataFlow/actions";
+import { getTasks, removeTask } from "../../dataFlow/actions";
 
 
 const mapStateToProps = ({getTasksReducer}) => ({
@@ -11,28 +11,39 @@ const mapStateToProps = ({getTasksReducer}) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getTasks: (uri) => dispatch(getTasks(uri))
+    getTasks: (uri) => dispatch(getTasks(uri)),
+    removeTask: (uri, id) => dispatch(removeTask(uri, id))
   }
 }
 
 
-const TasksList = ({ payload, loading, getTasks }) => {
+const TasksList = ({ payload, loading, getTasks, removeTask, onRemove }) => {
   const data = payload;
   const tasks = data && data.data;
+
 
   const title = tasks !== null ? (
     tasks.length === 0 ? document.title : `(${tasks.length}) ${document.title}`
   ) : document.title;
-  useEffect(() => {
+  useEffect(() => {''
     // document.title = `${title}`
     getTasks("http://localhost:3004/tasks")
   }, [])
 
-  
+  const handleRemove = (id) => {
+    try {
+      removeTask("http://localhost:3004/tasks", id);
+      onRemove();
+    } catch (error) {
+      console.log(error)
+    }
+    
+  }
+
   const render = () => {
     return(
       loading ? <span>Carregando...</span> : (
-        tasks === null ? <p>Nada Aqui</p> : (
+        tasks === null ? null : (
           <div className="taskList">
             {
               tasks.length === 0 ? <span>Sem tarefas</span> : (
@@ -42,6 +53,7 @@ const TasksList = ({ payload, loading, getTasks }) => {
                     <div className="task" key={id}>
                       <h2>{task.title}</h2>
                       <p>{task.description}</p>
+                      <button onClick={() => handleRemove(task._id)} className="buttonRemove">X</button>
                     </div>
                   );
                 })
